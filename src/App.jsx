@@ -1,9 +1,13 @@
-import Home from "./pages/Home";
+import { Routes, Route } from "react-router-dom";
 
+import Home from "./pages/Home";
+// later we will add Navbar & Footer
 function App() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Home />
+      <Routes>
+        <Route path="/" element={<Home />} /> 
+      </Routes>
     </div>
   );
 }
