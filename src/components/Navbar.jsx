@@ -1,5 +1,5 @@
 // src/components/Navbar.jsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   AppBar,
@@ -9,9 +9,21 @@ import {
   Drawer,
   List,
   ListItem,
+  Menu,
+  MenuItem,
+  Avatar,
+  Divider,
 } from "@mui/material";
+
 import { styled } from "@mui/material/styles";
-import { Menu as MenuIcon, Close as CloseIcon } from "@mui/icons-material";
+import {
+  Menu as MenuIcon,
+  Close as CloseIcon,
+  AccountCircle,
+} from "@mui/icons-material";
+
+
+/* ================= STYLES ================= */
 
 const StyledButton = styled(Button)(() => ({
   fontFamily: "Poppins, sans-serif",
@@ -21,7 +33,6 @@ const StyledButton = styled(Button)(() => ({
     backgroundColor: "rgba(220, 38, 38, 0.1)",
     color: "#DC2626",
   },
-  transition: "all 0.3s ease",
 }));
 
 const LoginButton = styled(Button)(() => ({
@@ -32,10 +43,7 @@ const LoginButton = styled(Button)(() => ({
   padding: "8px 24px",
   "&:hover": {
     backgroundColor: "#B91C1C",
-    transform: "translateY(-2px)",
-    boxShadow: "0 4px 12px rgba(220, 38, 38, 0.4)",
   },
-  transition: "all 0.3s ease",
 }));
 
 const MobileMenuButton = styled(Button)(() => ({
@@ -49,16 +57,71 @@ const MobileMenuButton = styled(Button)(() => ({
     backgroundColor: "rgba(220, 38, 38, 0.1)",
     color: "#DC2626",
   },
-  transition: "all 0.3s ease",
 }));
 
+
+/* ================= COMPONENT ================= */
+
 export default function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false);
+
   const navigate = useNavigate();
+
+  /* ---------- Mobile Drawer ---------- */
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  /* ---------- Profile Menu ---------- */
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  /* ---------- Auth State (NO WARNING VERSION) ---------- */
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    () => !!localStorage.getItem("token")
+  );
+
+
+  /* ================= AUTH LISTENER ================= */
+
+  useEffect(() => {
+
+    const updateAuth = () => {
+      setIsLoggedIn(!!localStorage.getItem("token"));
+    };
+
+    window.addEventListener("authChanged", updateAuth);
+
+    return () => {
+      window.removeEventListener("authChanged", updateAuth);
+    };
+
+  }, []);
+
+
+  /* ================= HANDLERS ================= */
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleProfileMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+
+    localStorage.removeItem("token");
+
+    window.dispatchEvent(new Event("authChanged"));
+
+    handleProfileMenuClose();
+
+    navigate("/signin");
+  };
+
+
+  /* ================= MENU ITEMS ================= */
 
   const menuItems = [
     { name: "Home", path: "/" },
@@ -67,56 +130,119 @@ export default function Navbar() {
     { name: "How It Works", path: "/how-it-works" },
   ];
 
+
+  /* ================= JSX ================= */
+
   return (
+
     <AppBar
       position="static"
-      elevation={0}
       sx={{
         backgroundColor: "#000000",
         borderBottom: "2px solid #DC2626",
       }}
     >
+
       <Toolbar className="flex justify-between px-4 md:px-8 py-3">
-        {/* Logo */}
+
+
+        {/* ========= LOGO ========= */}
+
         <Link to="/" className="no-underline">
-          <h1
-            className="text-2xl md:text-3xl font-bold tracking-tight"
-            style={{ fontFamily: "Poppins, sans-serif" }}
-          >
+
+          <h1 className="text-2xl md:text-3xl font-bold">
+
             <span className="text-red-600">Crave</span>
             <span className="text-white">Tech</span>
+
           </h1>
+
         </Link>
 
-        {/* Desktop Menu */}
-        <div className="hidden lg:flex items-center space-x-1">
+
+
+        {/* ========= DESKTOP MENU ========= */}
+
+        <div className="hidden lg:flex items-center space-x-2">
+
           {menuItems.map((item) => (
+
             <StyledButton
               key={item.name}
               component={Link}
               to={item.path}
-              className="px-4"
             >
               {item.name}
             </StyledButton>
+
           ))}
 
-          <LoginButton onClick={() => navigate("/signin")}>Sign In</LoginButton>
+
+          {/* ===== AUTH SECTION ===== */}
+
+          {isLoggedIn ? (
+
+            <>
+              <IconButton onClick={handleProfileMenuOpen}>
+
+                <Avatar sx={{ bgcolor: "#DC2626" }}>
+                  <AccountCircle />
+                </Avatar>
+
+              </IconButton>
+
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleProfileMenuClose}
+              >
+
+                <MenuItem
+                  onClick={() => {
+                    navigate("/profile");
+                    handleProfileMenuClose();
+                  }}
+                >
+                  Profile
+                </MenuItem>
+
+                <Divider />
+
+                <MenuItem onClick={handleLogout}>
+                  Logout
+                </MenuItem>
+
+              </Menu>
+
+            </>
+
+          ) : (
+
+            <LoginButton onClick={() => navigate("/signin")}>
+              Sign In
+            </LoginButton>
+
+          )}
+
         </div>
 
-        {/* Mobile Menu Toggle */}
+
+
+        {/* ========= MOBILE MENU BUTTON ========= */}
+
         <IconButton
           onClick={handleDrawerToggle}
-          sx={{
-            display: { xs: "flex", lg: "none" },
-            color: "#FFFFFF",
-          }}
+          sx={{ display: { xs: "flex", lg: "none" }, color: "#FFFFFF" }}
         >
           <MenuIcon />
         </IconButton>
+
       </Toolbar>
 
-      {/* Mobile Drawer */}
+
+
+      {/* ========= MOBILE DRAWER ========= */}
+
       <Drawer
         anchor="right"
         open={mobileOpen}
@@ -124,27 +250,41 @@ export default function Navbar() {
         sx={{
           "& .MuiDrawer-paper": {
             width: "280px",
-            backgroundColor: "#000000",
+            backgroundColor: "#000",
             borderLeft: "2px solid #DC2626",
           },
         }}
       >
+
         <div className="flex flex-col h-full">
-          {/* Header */}
-          <div className="flex justify-between items-center p-4 border-b border-gray-800">
+
+
+          {/* HEADER */}
+
+          <div className="flex justify-between items-center p-4">
+
             <h2 className="text-xl font-bold">
+
               <span className="text-red-600">Crave</span>
               <span className="text-white">Tech</span>
+
             </h2>
-            <IconButton onClick={handleDrawerToggle} sx={{ color: "#FFFFFF" }}>
-              <CloseIcon />
+
+            <IconButton onClick={handleDrawerToggle}>
+              <CloseIcon sx={{ color: "#fff" }} />
             </IconButton>
+
           </div>
 
-          {/* Menu */}
-          <List className="flex-1 pt-4">
+
+          {/* MENU */}
+
+          <List>
+
             {menuItems.map((item) => (
+
               <ListItem key={item.name} disablePadding>
+
                 <MobileMenuButton
                   component={Link}
                   to={item.path}
@@ -152,24 +292,46 @@ export default function Navbar() {
                 >
                   {item.name}
                 </MobileMenuButton>
+
               </ListItem>
+
             ))}
+
           </List>
 
-          {/* Auth Button */}
-          <div className="p-4 border-t border-gray-800">
-            <LoginButton
-              fullWidth
-              onClick={() => {
-                navigate("/signin");
-                handleDrawerToggle();
-              }}
-            >
-              Sign In
-            </LoginButton>
+
+          {/* AUTH */}
+
+          <div className="p-4 mt-auto">
+
+            {isLoggedIn ? (
+
+              <LoginButton fullWidth onClick={handleLogout}>
+                Logout
+              </LoginButton>
+
+            ) : (
+
+              <LoginButton
+                fullWidth
+                onClick={() => {
+                  navigate("/signin");
+                  handleDrawerToggle();
+                }}
+              >
+                Sign In
+              </LoginButton>
+
+            )}
+
           </div>
+
         </div>
+
       </Drawer>
+
     </AppBar>
+
   );
+
 }
