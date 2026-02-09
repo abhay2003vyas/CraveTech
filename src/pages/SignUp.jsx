@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import api from "../api/api";
 export default function SignUp() {
   const [formData, setFormData] = useState({
     name: "",
@@ -9,13 +9,10 @@ export default function SignUp() {
   });
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
@@ -23,9 +20,16 @@ export default function SignUp() {
       return;
     }
 
-    console.log(formData);
-    // Later: send data to Spring Boot backend
+    await api.post("/auth/register", {
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+    });
+
+    alert("Signup successful");
   };
+
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
