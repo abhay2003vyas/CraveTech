@@ -15,23 +15,28 @@ export default function Explore() {
   });
   const [isFormVisible, setIsFormVisible] = useState(false);
 
-  /* 📥 FETCH MOVIES */
-  useEffect(() => {
-    fetchMovies();
-  }, []);
+  const token = localStorage.getItem("token");
 
-  /* 🔐 AUTH CHECK */
+  /* 🔐 AUTH CHECK + FETCH USER MOVIES */
   useEffect(() => {
-    const token = localStorage.getItem("token");
     if (!token) {
       alert("Please sign in to access Explore");
       navigate("/signin");
+      return;
     }
-  }, [navigate]);
 
-  const fetchMovies = async () => {
+    fetchMyMovies();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  /* 📥 FETCH ONLY LOGGED-IN USER MOVIES */
+  const fetchMyMovies = async () => {
     try {
-      const res = await api.get("/movies");
+      const res = await api.get("/movies/my", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setMovies(res.data);
     } catch (err) {
       console.error("Fetch failed", err);
@@ -45,12 +50,17 @@ export default function Explore() {
     try {
       const res = await api.post("/movies", form, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
       setMovies((prev) => [...prev, res.data]);
-      setForm({ title: "", director: "", genre: "", releaseYear: "" });
+      setForm({
+        title: "",
+        director: "",
+        genre: "",
+        releaseYear: "",
+      });
       setIsFormVisible(false);
     } catch (err) {
       console.error("Add failed", err);
@@ -65,9 +75,10 @@ export default function Explore() {
     try {
       await api.delete(`/movies/${id}`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${token}`,
         },
       });
+
       setMovies((prev) => prev.filter((m) => m.id !== id));
     } catch (err) {
       console.error("Delete failed", err);
@@ -79,7 +90,7 @@ export default function Explore() {
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white border-b p-6">
         <h1 className="text-3xl font-semibold">Explore Movies</h1>
-        <p className="text-gray-600">Manage your movie collection</p>
+        <p className="text-gray-600">Your personal movie collection</p>
       </div>
 
       <div className="max-w-6xl mx-auto p-6">
@@ -102,7 +113,9 @@ export default function Explore() {
                 required
                 type={field === "releaseYear" ? "number" : "text"}
                 value={form[field]}
-                onChange={(e) => setForm({ ...form, [field]: e.target.value })}
+                onChange={(e) =>
+                  setForm({ ...form, [field]: e.target.value })
+                }
                 className="border p-2 rounded"
               />
             ))}
