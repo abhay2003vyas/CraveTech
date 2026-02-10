@@ -1,69 +1,74 @@
 import { useState, useEffect } from "react";
 import { Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { ArrowForward, LibraryBooks, ChevronLeft, ChevronRight } from "@mui/icons-material";
+import {
+  ArrowForward,
+  Movie,
+  ChevronLeft,
+  ChevronRight,
+} from "@mui/icons-material";
+
+/* ================= BUTTON STYLES ================= */
 
 const PrimaryButton = styled(Button)(() => ({
   fontFamily: "'Inter', 'Poppins', sans-serif",
-  backgroundColor: "#DC2626",
-  color: "#FFFFFF",
+  backgroundColor: "#F1B621",
+  color: "#0F172A",
   fontWeight: 600,
   padding: "14px 36px",
   fontSize: "15px",
   borderRadius: "10px",
   textTransform: "none",
-  letterSpacing: "0.3px",
-  boxShadow: "0 6px 20px rgba(220, 38, 38, 0.25)",
+  boxShadow: "0 8px 24px rgba(241, 182, 33, 0.35)",
   "&:hover": {
-    backgroundColor: "#B91C1C",
+    backgroundColor: "#E0A900",
     transform: "translateY(-2px)",
-    boxShadow: "0 10px 28px rgba(220, 38, 38, 0.35)",
   },
   transition: "all 0.3s ease",
 }));
 
 const SecondaryButton = styled(Button)(() => ({
   fontFamily: "'Inter', 'Poppins', sans-serif",
-  color: "#DC2626",
-  borderColor: "#DC2626",
+  color: "#F1B621",
+  borderColor: "#F1B621",
   borderWidth: "2px",
   fontWeight: 600,
   padding: "14px 36px",
   fontSize: "15px",
   borderRadius: "10px",
   textTransform: "none",
-  letterSpacing: "0.3px",
   "&:hover": {
-    backgroundColor: "rgba(220, 38, 38, 0.06)",
-    borderColor: "#DC2626",
+    backgroundColor: "rgba(241, 182, 33, 0.1)",
   },
   transition: "all 0.3s ease",
 }));
 
+/* ================= COMPONENT ================= */
+
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Carousel images - using placeholder images
+  /* ================= MOVIE CAROUSEL ================= */
+
   const carouselImages = [
     {
-      url: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=800&q=80",
-      title: "Digital Library",
+      url: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=900&q=80",
+      title: "Blockbuster Movies",
     },
     {
-      url: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&q=80",
-      title: "Book Collection",
+      url: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=900&q=80",
+      title: "Cinema Experience",
     },
     {
-      url: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800&q=80",
-      title: "Reading Space",
+      url: "https://images.unsplash.com/photo-1512070679279-8988d32161be?w=900&q=80",
+      title: "Directors & Genres",
     },
     {
-      url: "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=800&q=80",
-      title: "Book Management",
+      url: "https://images.unsplash.com/photo-1608170825938-a8ea0305d46c?w=900&q=80",
+      title: "Movie Analytics",
     },
   ];
 
-  // Auto-play carousel
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
@@ -71,80 +76,65 @@ export default function Hero() {
     return () => clearInterval(timer);
   }, []);
 
-  const nextSlide = () => {
+  const nextSlide = () =>
     setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
-  };
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + carouselImages.length) % carouselImages.length);
-  };
+  const prevSlide = () =>
+    setCurrentSlide(
+      (prev) => (prev - 1 + carouselImages.length) % carouselImages.length,
+    );
 
   return (
-    <section className="relative bg-gradient-to-br from-gray-50 via-white to-red-50/30 text-gray-900 py-16 md:py-24 px-6 min-h-[calc(100vh-80px)]">
+    <section className="relative bg-gradient-to-br from-[#020617] via-[#0F172A] to-black text-white py-20 px-6 min-h-[calc(100vh-80px)]">
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          
-          {/* Left Side - Content */}
+        <div className="grid lg:grid-cols-2 gap-14 items-center">
+          {/* ================= LEFT CONTENT ================= */}
           <div className="text-center lg:text-left order-2 lg:order-1">
             {/* Badge */}
-            <div 
-              className="inline-flex items-center gap-2 mb-6 px-5 py-2 bg-red-50 rounded-full border border-red-200 shadow-sm"
-              style={{ fontFamily: "'Inter', sans-serif" }}
-            >
-              <span className="text-sm font-semibold text-red-600 tracking-wide">
-                ⚡ Modern Library Management Platform
+            <div className="inline-flex items-center gap-2 mb-6 px-5 py-2 bg-[#F1B621]/10 rounded-full border border-[#F1B621]/30">
+              <span className="text-sm font-semibold text-[#F1B621]">
+                🎬 Modern Movie Management System
               </span>
             </div>
 
             {/* Heading */}
-            <h1 
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-tight"
-              style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
-            >
-              Manage Your Library
-              <span className="block text-red-600 mt-2">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
+              Manage Movies
+              <span className="block text-[#F1B621] mt-2">
                 Smarter & Faster
               </span>
             </h1>
 
             {/* Subtitle */}
-            <p 
-              className="text-base sm:text-lg md:text-xl text-gray-600 mb-10 leading-relaxed font-normal"
-              style={{ fontFamily: "'Inter', sans-serif", letterSpacing: "0.2px" }}
-            >
-              A secure and scalable book management system designed for modern
-              libraries. Organize books, manage users, and track borrowing with ease.
+            <p className="text-base sm:text-lg md:text-xl text-slate-300 mb-10 leading-relaxed">
+              A powerful platform to manage movies, directors, genres and
+              release years. Perform CRUD operations, advanced filtering and
+              real-time analytics with ease.
             </p>
 
             {/* CTA */}
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-5 mb-12">
               <PrimaryButton endIcon={<ArrowForward />}>
-                Get Started
+                Explore Movies
               </PrimaryButton>
 
-              <SecondaryButton startIcon={<LibraryBooks />}>
+              <SecondaryButton startIcon={<Movie />}>
                 View Features
               </SecondaryButton>
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-8 pt-8 border-t border-gray-200">
+            <div className="grid grid-cols-3 gap-8 pt-8 border-t border-white/10">
               {[
-                { value: "10K+", label: "Books" },
-                { value: "500+", label: "Users" },
-                { value: "99.9%", label: "Uptime" },
+                { value: "5K+", label: "Movies" },
+                { value: "300+", label: "Directors" },
+                { value: "2025", label: "Latest Releases" },
               ].map((stat) => (
-                <div key={stat.label} className="text-center lg:text-left">
-                  <h3 
-                    className="text-3xl md:text-4xl font-bold text-red-600"
-                    style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
-                  >
+                <div key={stat.label}>
+                  <h3 className="text-3xl md:text-4xl font-bold text-[#F1B621]">
                     {stat.value}
                   </h3>
-                  <p 
-                    className="text-gray-600 mt-1 text-xs md:text-sm font-medium"
-                    style={{ fontFamily: "'Inter', sans-serif", letterSpacing: "0.5px" }}
-                  >
+                  <p className="text-slate-400 mt-1 text-sm font-medium">
                     {stat.label}
                   </p>
                 </div>
@@ -152,16 +142,14 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right Side - Carousel */}
+          {/* ================= RIGHT CAROUSEL ================= */}
           <div className="order-1 lg:order-2">
             <div className="relative group">
-              {/* Main Carousel Container */}
               <div className="relative overflow-hidden rounded-2xl shadow-2xl aspect-[4/3] bg-black">
-                {/* Images */}
                 {carouselImages.map((image, index) => (
                   <div
                     key={index}
-                    className={`absolute inset-0 transition-all duration-700 ease-in-out ${
+                    className={`absolute inset-0 transition-all duration-700 ${
                       index === currentSlide
                         ? "opacity-100 scale-100"
                         : "opacity-0 scale-95"
@@ -172,91 +160,52 @@ export default function Hero() {
                       alt={image.title}
                       className="w-full h-full object-cover"
                     />
-                    {/* Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-                    
-                    {/* Image Title */}
-                    <div className="absolute bottom-6 left-6 text-white">
-                      <h3 
-                        className="text-2xl md:text-3xl font-bold"
-                        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                      >
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                    <div className="absolute bottom-6 left-6">
+                      <h3 className="text-2xl md:text-3xl font-bold">
                         {image.title}
                       </h3>
                     </div>
                   </div>
                 ))}
 
-                {/* Navigation Buttons */}
+                {/* Controls */}
                 <button
                   onClick={prevSlide}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-black p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 text-black p-2 rounded-full opacity-0 group-hover:opacity-100"
                 >
                   <ChevronLeft />
                 </button>
                 <button
                   onClick={nextSlide}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-black p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 text-black p-2 rounded-full opacity-0 group-hover:opacity-100"
                 >
                   <ChevronRight />
                 </button>
-
-                {/* Dots Indicator */}
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                  {carouselImages.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentSlide(index)}
-                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                        index === currentSlide
-                          ? "bg-white w-8"
-                          : "bg-white/50 hover:bg-white/75"
-                      }`}
-                    />
-                  ))}
-                </div>
               </div>
 
-              {/* Decorative Elements */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-red-600 rounded-full blur-3xl opacity-20 -z-10"></div>
-              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-black rounded-full blur-3xl opacity-10 -z-10"></div>
+              {/* Glow */}
+              <div className="absolute -top-6 -right-6 w-32 h-32 bg-[#F1B621] rounded-full blur-3xl opacity-20 -z-10"></div>
             </div>
 
-            {/* Feature Cards Below Carousel */}
+            {/* Feature Cards */}
             <div className="grid grid-cols-2 gap-4 mt-8">
-              <div className="bg-white p-5 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
-                <div className="text-3xl mb-2">📚</div>
-                <h4 
-                  className="font-bold text-gray-900 mb-1"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  Easy Catalog
-                </h4>
-                <p 
-                  className="text-sm text-gray-600"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  Organize thousands of books
+              <div className="bg-[#020617] p-5 rounded-xl border border-white/10">
+                <div className="text-3xl mb-2">🎞️</div>
+                <h4 className="font-bold mb-1">Smart Catalog</h4>
+                <p className="text-sm text-slate-400">
+                  Manage movies by director & year
                 </p>
               </div>
-              <div className="bg-white p-5 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
-                <div className="text-3xl mb-2">🔒</div>
-                <h4 
-                  className="font-bold text-gray-900 mb-1"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  Secure Access
-                </h4>
-                <p 
-                  className="text-sm text-gray-600"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  Protected user data
+              <div className="bg-[#020617] p-5 rounded-xl border border-white/10">
+                <div className="text-3xl mb-2">📊</div>
+                <h4 className="font-bold mb-1">Analytics Ready</h4>
+                <p className="text-sm text-slate-400">
+                  Insights on releases & genres
                 </p>
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </section>

@@ -2,12 +2,12 @@ import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Features from "./components/Features";
+import Explore from "./pages/Explore";
 import Home from "./pages/Home";
-import Library from "./pages/Library";
+import Movies from "./pages/Movies";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import HowItWorks from "./pages/HowItWorks";
+import Insights from "./pages/Insights";
 
 function App() {
   return (
@@ -19,11 +19,11 @@ function App() {
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/library" element={<Library />} />
+          <Route path="/movies" element={<Movies />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/features" element={<Features />} />
-          <Route path="/how-it-works" element={<HowItWorks />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/insights" element={<Insights />} />
         </Routes>
       </main>
 

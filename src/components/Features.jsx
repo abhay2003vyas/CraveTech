@@ -1,49 +1,49 @@
 // src/components/Features.jsx
 import { Card, CardContent } from "@mui/material";
-import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
-import PeopleIcon from "@mui/icons-material/People";
+import MovieIcon from "@mui/icons-material/Movie";
+import PersonIcon from "@mui/icons-material/Person";
 import SecurityIcon from "@mui/icons-material/Security";
 
 export default function Features() {
   const features = [
     {
-      icon: <LibraryBooksIcon sx={{ fontSize: 36 }} />,
-      title: "Book Management",
-      desc: "Add, update, delete, and search books with ease."
+      icon: <MovieIcon sx={{ fontSize: 36 }} />,
+      title: "Movie Management",
+      desc: "Add, update, delete, and manage movies with complete information."
     },
     {
-      icon: <PeopleIcon sx={{ fontSize: 36 }} />,
-      title: "User Management",
-      desc: "Manage students, admins, and librarians efficiently."
+      icon: <PersonIcon sx={{ fontSize: 36 }} />,
+      title: "Director-based Search",
+      desc: "Browse and filter movies easily by director or release year."
     },
     {
       icon: <SecurityIcon sx={{ fontSize: 36 }} />,
-      title: "Secure System",
-      desc: "Role-based access with Spring Security backend."
+      title: "Secure Authentication",
+      desc: "JWT-based login and role-based access using Spring Security."
     },
   ];
 
   return (
-    <section className="bg-white py-20 px-6">
+    <section className="bg-slate-50 py-20 px-6">
       
       {/* Section Header */}
       <div className="text-center mb-16">
-        <div className="inline-flex items-center mb-4 px-4 py-2 bg-red-50 rounded-full border border-red-200">
-          <span className="text-sm font-medium text-red-600 tracking-wide">
+        <div className="inline-flex items-center mb-4 px-4 py-2 bg-indigo-50 rounded-full border border-indigo-200">
+          <span className="text-sm font-medium text-indigo-600 tracking-wide">
             FEATURES
           </span>
         </div>
 
-        <h2 className="text-4xl md:text-5xl font-semibold text-gray-900 mb-6">
+        <h2 className="text-4xl md:text-5xl font-semibold text-slate-800 mb-6">
           Powerful Features for
-          <span className="block text-red-600 mt-2">
-            Modern Libraries
+          <span className="block text-indigo-600 mt-2">
+            Movie Management
           </span>
         </h2>
 
-        <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-          Everything you need to manage your library efficiently, securely,
-          and at scale.
+        <p className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+          A modern and secure platform to manage movies, directors,
+          and user access with ease.
         </p>
       </div>
 
@@ -53,22 +53,24 @@ export default function Features() {
           <Card
             key={i}
             elevation={0}
-            className="border border-gray-200 hover:border-red-500 transition-all duration-300"
+            className="border border-slate-200 bg-white
+                       hover:border-indigo-500 hover:shadow-lg
+                       transition-all duration-300"
           >
             <CardContent className="text-center px-8 py-10">
               
               {/* Icon */}
-              <div className="flex justify-center mb-6 text-red-600">
+              <div className="flex justify-center mb-6 text-rose-500">
                 {f.icon}
               </div>
 
               {/* Title */}
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+              <h3 className="text-xl font-semibold text-slate-800 mb-3">
                 {f.title}
               </h3>
 
               {/* Description */}
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-slate-600 leading-relaxed">
                 {f.desc}
               </p>
 
