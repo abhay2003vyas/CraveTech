@@ -57,21 +57,21 @@ export default function SignIn() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-yellow-100 px-4">
       <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
 
         <h2 className="text-3xl font-bold text-center text-red-600 mb-2">
           Welcome Back
         </h2>
 
-        <p className="text-center text-gray-500 mb-6">
+        <p className="text-center text-yellow-500 mb-6">
           Sign in to your library account
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-5">
 
           <div>
-            <label className="block text-gray-700 font-medium mb-1">
+            <label className="block text-yellow-700 font-medium mb-1">
               Email
             </label>
 
@@ -86,7 +86,7 @@ export default function SignIn() {
           </div>
 
           <div>
-            <label className="block text-gray-700 font-medium mb-1">
+            <label className="block text-yellow-700 font-medium mb-1">
               Password
             </label>
 
@@ -102,7 +102,7 @@ export default function SignIn() {
 
           <div className="flex items-center justify-between text-sm">
 
-            <label className="flex items-center gap-2 text-gray-600">
+            <label className="flex items-center gap-2 text-yellow-600">
               <input type="checkbox" className="accent-red-600" />
               Remember me
             </label>
@@ -123,7 +123,7 @@ export default function SignIn() {
 
         </form>
 
-        <p className="text-center text-gray-600 mt-6">
+        <p className="text-center text-yellow-600 mt-6">
           Don’t have an account?{" "}
           <a
             href="/signup"

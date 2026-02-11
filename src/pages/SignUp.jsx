@@ -32,18 +32,18 @@ export default function SignUp() {
 
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-yellow-100 px-4">
       <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
         <h2 className="text-3xl font-bold text-center text-red-600 mb-2">
           Create Account
         </h2>
-        <p className="text-center text-gray-500 mb-6">
+        <p className="text-center text-yellow-500 mb-6">
           Join CraveTech Library System
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-gray-700 font-medium mb-1">
+            <label className="block text-yellow-700 font-medium mb-1">
               Full Name
             </label>
             <input
@@ -58,7 +58,7 @@ export default function SignUp() {
           </div>
 
           <div>
-            <label className="block text-gray-700 font-medium mb-1">
+            <label className="block text-yellow-700 font-medium mb-1">
               Email
             </label>
             <input
@@ -73,7 +73,7 @@ export default function SignUp() {
           </div>
 
           <div>
-            <label className="block text-gray-700 font-medium mb-1">
+            <label className="block text-yellow-700 font-medium mb-1">
               Password
             </label>
             <input
@@ -88,7 +88,7 @@ export default function SignUp() {
           </div>
 
           <div>
-            <label className="block text-gray-700 font-medium mb-1">
+            <label className="block text-yellow-700 font-medium mb-1">
               Confirm Password
             </label>
             <input
@@ -110,7 +110,7 @@ export default function SignUp() {
           </button>
         </form>
 
-        <p className="text-center text-gray-600 mt-6">
+        <p className="text-center text-yellow-600 mt-6">
           Already have an account?{" "}
           <a href="/signin" className="text-red-600 hover:underline font-medium">
             Sign In
