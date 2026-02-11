@@ -11,7 +11,7 @@ export default function Movies() {
 
   const fetchMovies = async () => {
     try {
-      const res = await api.get("/movies");
+      const res = await api.get("/movies/public");
       setMovies(res.data);
     } catch (err) {
       console.error("Failed to fetch movies", err);
