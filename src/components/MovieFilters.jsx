@@ -1,7 +1,7 @@
 // src/components/MovieFilters.jsx
 export default function MovieFilters({ search, setSearch, genre, setGenre }) {
   return (
-    <div className="mb-6 bg-white rounded-lg border border-gray-200 p-4">
+    <div className="mb-6 bg-white rounded-lg border border-yellow-200 p-4">
       <div className="flex flex-col md:flex-row gap-4">
         {/* Search */}
         <div className="flex-1">
@@ -11,7 +11,7 @@ export default function MovieFilters({ search, setSearch, genre, setGenre }) {
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <svg
-                className="h-5 w-5 text-gray-400"
+                className="h-5 w-5 text-yellow-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -30,8 +30,8 @@ export default function MovieFilters({ search, setSearch, genre, setGenre }) {
               placeholder="Search by movie title or director..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md 
-                       leading-5 bg-white placeholder-gray-500 text-gray-900
+              className="block w-full pl-10 pr-3 py-2 border border-yellow-300 rounded-md 
+                       leading-5 bg-white placeholder-yellow-500 text-yellow-900
                        focus:outline-none focus:ring-2 focus:ring-yellow-400 
                        focus:border-transparent"
             />
@@ -47,8 +47,8 @@ export default function MovieFilters({ search, setSearch, genre, setGenre }) {
             id="genre"
             value={genre}
             onChange={(e) => setGenre(e.target.value)}
-            className="block w-full px-3 py-2 border border-gray-300 rounded-md 
-                     bg-white text-gray-900
+            className="block w-full px-3 py-2 border border-yellow-300 rounded-md 
+                     bg-white text-yellow-900
                      focus:outline-none focus:ring-2 focus:ring-yellow-400 
                      focus:border-transparent"
           >
